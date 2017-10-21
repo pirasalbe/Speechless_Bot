@@ -15,9 +15,12 @@ public class Service {
 	public static String getText(File file) {
 		String msg = "";
 
+		Converter converter = new Converter(file);
+		File wav = converter.getOutputFile();
+
 		InputStream inputStream = null;
 		try {
-			inputStream = new FileInputStream(file);
+			inputStream = new FileInputStream(wav);
 		} catch (IOException e) {
 			System.out.println("File non trovato");
 		}
@@ -26,7 +29,6 @@ public class Service {
 		configuration.setAcousticModelPath("resource:/edu/cmu/sphinx/models/en-us/en-us");
 		configuration.setDictionaryPath("resource:/edu/cmu/sphinx/models/en-us/cmudict-en-us.dict");
 		configuration.setLanguageModelPath("resource:/edu/cmu/sphinx/models/en-us/en-us.lm.bin");
-		configuration.setSampleRate(6000);
 
 		StreamSpeechRecognizer recognizer = null;
 
